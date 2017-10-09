@@ -5,8 +5,30 @@
     <title>Bitcoin Price Viewer</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        table,th,td { 
+            border: 1px solid black;
+            border-collapse: collapse;
+			font-family:sans-serif;
+        }
+        th,td{
+            padding:8px;
+            text-align:center;
+        }
+        table{
+            width:100%;
+        }
+    </style>
 </head>
 <body>
+    <div>
+        <br>
+        <table>
+            <caption><b>Comparation of bitcoin price</b></caption>
+            <tr><th>Bitfinex</th><th>CHBTC</th><th>yuanbao</th></tr>
+            <tr><td id="priceBitfinex"></td><td id="priceCHBTC"></td><td id="priceyuanbao"></td></tr>
+        </table>
+    </div>
     <div>
         <p>Data source:</p>
         <p>1. <a href="https://www.bitfinex.com"> https://www.bitfinex.com </a></p>
