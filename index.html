@@ -31,11 +31,16 @@
     </div>
     <div>
         <p>Data source:</p>
-        <p>1. <a href="https://www.bitfinex.com" target="iframe_a"> https://www.bitfinex.com </a></p>
-        <p>2. <a href="https://trans.chbtc.com/markets/btc" target="iframe_a"> https://trans.chbtc.com/markets/btc </a></p>
-        <p>3. <a href="https://www.yuanbao.com/trade/btc2cny" target="iframe_a"> https://www.yuanbao.com/trade/btc2cny </a></p>
+		<ol>
+        <li><a href="https://api.bitfinex.com/v1/pubticker/btcusd" target="iframe_a"> https://www.bitfinex.com </a></li>
+		<iframe src="https://www.bitfinex.com" style="width:100%;height:50px" name="iframe_a"></iframe>
+        <li><a href="http://api.chbtc.com/data/v1/ticker?currency=eth_cny" target="iframe_b"> https://trans.chbtc.com/markets/btc </a></li>
+		<iframe src="https://trans.chbtc.com/markets/btc" style="width:100%;height:50px" name="iframe_b"></iframe>
+        <li><a href="https://www.yuanbao.com/trade/btc2cny" target="iframe_c"> https://www.yuanbao.com/trade/btc2cny </a></li>
+		<iframe src="https://www.yuanbao.com/trade/btc2cny" style="width:100%" name="iframe_c"></iframe>
+		</ol>
     </div>
-    <iframe  src="https://www.baidu.com" style="width:100%;height:400px" name="iframe_a"></iframe>
+    <!-- <iframe  src="https://www.baidu.com" style="width:100%;height:400px" name="iframe_a"></iframe> -->
     
 </body>
 </html>
