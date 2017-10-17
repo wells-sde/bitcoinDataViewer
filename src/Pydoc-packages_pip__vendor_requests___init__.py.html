@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Pydoc: getfile d:\program files (x86)\python\python36\lib\site-packages\pip\_vendor\requests\__init__.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="pydoc_data/_pydoc.css"></head><body bgcolor="#f0f0f8">
+            <div style='float:left'>
+                Python 3.6.3 [v3.6.3:2c5fed8, MSC v.1900 64 bit (AMD64)]<br>Windows-10
+            </div>
+            <div style='float:right'>
+                <div style='text-align:center'>
+                  <a href="index.html">Module Index</a>
+                  : <a href="topics.html">Topics</a>
+                  : <a href="keywords.html">Keywords</a>
+                </div>
+                <div>
+                    <form action="get" style='display:inline;'>
+                      <input type=text name=key size=15>
+                      <input type=submit value="Get">
+                    </form>&nbsp;
+                    <form action="search" style='display:inline;'>
+                      <input type=text name=key size=15>
+                      <input type=submit value="Search">
+                    </form>
+                </div>
+            </div>
+            <div style="clear:both;padding-top:.5em;">
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>File Listing</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial">&nbsp;</font></td></tr></table>
+    <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>File: d:\program files (x86)\python\python36\lib\site-packages\pip\_vendor\requests\__init__.py</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><pre># -*- coding: utf-8 -*-
+
+#   __
+#  /__)  _  _     _   _ _/   _
+# / (   (- (/ (/ (- _)  /  _)
+#          /
+
+"""
+Requests HTTP library
+~~~~~~~~~~~~~~~~~~~~~
+
+Requests is an HTTP library, written in Python, for human beings. Basic GET
+usage:
+
+   &gt;&gt;&gt; import requests
+   &gt;&gt;&gt; r = requests.get('https://www.python.org')
+   &gt;&gt;&gt; r.status_code
+   200
+   &gt;&gt;&gt; 'Python is a programming language' in r.content
+   True
+
+... or POST:
+
+   &gt;&gt;&gt; payload = dict(key1='value1', key2='value2')
+   &gt;&gt;&gt; r = requests.post('http://httpbin.org/post', data=payload)
+   &gt;&gt;&gt; print(r.text)
+   {
+     ...
+     "form": {
+       "key2": "value2",
+       "key1": "value1"
+     },
+     ...
+   }
+
+The other HTTP methods are supported - see `requests.api`. Full documentation
+is at &lt;http://python-requests.org&gt;.
+
+:copyright: (c) 2016 by Kenneth Reitz.
+:license: Apache 2.0, see LICENSE for more details.
+"""
+
+__title__ = 'requests'
+__version__ = '2.11.1'
+__build__ = 0x021101
+__author__ = 'Kenneth Reitz'
+__license__ = 'Apache 2.0'
+__copyright__ = 'Copyright 2016 Kenneth Reitz'
+
+# Attempt to enable urllib3's SNI support, if possible
+# Note: Patched by pip to prevent using the PyOpenSSL module. On Windows this
+#       prevents upgrading cryptography.
+# try:
+#     from .packages.urllib3.contrib import pyopenssl
+#     pyopenssl.inject_into_urllib3()
+# except ImportError:
+#     pass
+
+import warnings
+
+# urllib3's DependencyWarnings should be silenced.
+from .packages.urllib3.exceptions import DependencyWarning
+warnings.simplefilter('ignore', DependencyWarning)
+
+from . import utils
+from .models import Request, Response, PreparedRequest
+from .api import request, get, head, post, patch, put, delete, options
+from .sessions import session, Session
+from .status_codes import codes
+from .exceptions import (
+    RequestException, Timeout, URLRequired,
+    TooManyRedirects, HTTPError, ConnectionError,
+    FileModeWarning, ConnectTimeout, ReadTimeout
+)
+
+# Set default logging handler to avoid "No handler found" warnings.
+import logging
+try:  # Python 2.7+
+    from logging import NullHandler
+except ImportError:
+    class NullHandler(logging.Handler):
+        def emit(self, record):
+            pass
+
+logging.getLogger(__name__).addHandler(NullHandler())
+
+# FileModeWarnings go off per the default.
+warnings.simplefilter('default', FileModeWarning, append=True)
+</pre></td></tr></table></div>
+</body></html>
