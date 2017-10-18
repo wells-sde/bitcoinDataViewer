@@ -9,13 +9,10 @@
 <h2>为 JSON 字符串创建对象</h2>
 <p id="demo"></p>
 <script>
-var text = '{ "sites" : [' +
-	'{ "name":"Runoob" , "url":"www.runoob.com" },' +
-	'{ "name":"Google" , "url":"www.google.com" },' +
-	'{ "name":"Taobao" , "url":"www.taobao.com" } ]}';
+var text = '{"mid": "5365.6", "bid": "5365.0", "ask": "5366.2", "last_price": "5362.8", "low": "5335.0", "high": "5679.4", "volume": "39431.56355671", "timestamp": "1508309696.3492029"}'
 	
-obj = JSON.parse(text);
-document.getElementById("demo").innerHTML = obj.sites[1].name + " " + obj.sites[1].url;
+var obj = JSON.parse(text);
+document.getElementById("demo").innerHTML = obj.last_price;
 </script>
 
 </body>

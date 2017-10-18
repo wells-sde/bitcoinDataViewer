@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+        $("#price1").load("data_bitfex.json ",function(){
+		var text= $("#price1").text();
+		var obj=JSON.parse(text);
+		 $("#price2").text(obj.last_price);
+		 });
+    });
+});
+</script>
+</head>
+<body>
+
+<div id="div1"><h2></h2></div>
+
+
+<button>Get External Content</button>
+<br>
+<var id="price1"></var>
+<br>
+<var id="price2"></var>
+
+
+</body>
+</html>
+</html>

@@ -5,6 +5,27 @@
     <title>Bitcoin Price Viewer</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+        $("#complete_price1").load("src/data_bitfex.json ",function(){
+		var text= $("#complete_price1").text();
+		var obj=JSON.parse(text);
+		 $("#priceBitfinex").text(obj.last_price);
+		 var d = new Date(parseFloat(obj.timestamp)*1000);
+		 $("#updatetime_b").text(d);
+		 });
+		$("#complete_price2").load("src/data_chbtc.json ",function(){
+		var text= $("#complete_price2").text();
+		var obj=JSON.parse(text);
+		$("#priceCHBTC").text(obj.ticker.last);
+		var d = new Date(parseInt(obj.date));
+		$("#updatetime_c").text(d);
+		 });	 
+    });
+});
+</script>
     <style>
         table,th,td { 
             border: 1px solid black;
@@ -18,29 +39,34 @@
         table{
             width:100%;
         }
+		tr:nth-child(even) {
+            background-color:#eeeeee;
+        }
     </style>
+
 </head>
 <body>
     <div>
+	<button>Get Content</button>
         <br>
         <table>
             <caption><b>Comparation of bitcoin price</b></caption>
-            <tr><th>Bitfinex</th><th>CHBTC</th><th>yuanbao</th></tr>
+            <tr><th>Bitfinex(USD)</th><th>CHBTC(CNY)</th><th>yuanbao</th></tr>
             <tr><td id="priceBitfinex"></td><td id="priceCHBTC"></td><td id="priceyuanbao"></td></tr>
+			<tr><td id ="updatetime_b"></td><td  id ="updatetime_c"></td><td  id ="updatetime_y"></td></tr>
         </table>
     </div>
     <div>
         <p>Data source:</p>
 		<ol>
-        <li><a href="https://api.bitfinex.com/v1/pubticker/btcusd" target="iframe_a"> https://www.bitfinex.com </a></li>
-		<iframe src="https://www.bitfinex.com" style="width:100%" name="iframe_a"></iframe>
-        <li><a href="http://api.chbtc.com/data/v1/ticker?currency=eth_cny" target="iframe_b"> https://trans.chbtc.com/btc </a></li>
-		<iframe src="https://trans.chbtc.com/btc" style="width:100%" name="iframe_b"></iframe>
-        <li><a href="https://www.yuanbao.com/trade/btc2cny" target="iframe_c"> https://www.yuanbao.com/trade/btc2cny </a></li>
-		<iframe src="https://www.yuanbao.com/trade/btc2cny" style="width:100%" name="iframe_c"></iframe>
+        <li id ="price1"><a href="https://www.bitfinex.com" target="_blank"> https://www.bitfinex.com </a></li>
+		<var id="complete_price1" ></var>
+        <li id ="price2"><a href="https://trans.chbtc.com/btc" target="_blank"> https://trans.chbtc.com/btc </a></li>
+		<var id="complete_price2" ></var>
+        <li><a href="https://www.yuanbao.com/trade/btc2cny" target="_blank"> https://www.yuanbao.com/trade/btc2cny </a></li>
+		<var id="complete_price3" ></var>
 		</ol>
     </div>
-    <!-- <iframe  src="https://www.baidu.com" style="width:100%;height:400px" name="iframe_a"></iframe> -->
     
 </body>
 </html>
