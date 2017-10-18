@@ -5,10 +5,11 @@
     <title>Bitcoin Price Viewer</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- <meta http-equiv="refresh" content="2"> -->
 	<script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
-    $("button").click(function(){
+$(document).ready(setInterval(function(){
+    <!-- $("button").click(function(){ -->
         $("#complete_price1").load("src/data_bitfex.json ",function(){
 		var text= $("#complete_price1").text();
 		var obj=JSON.parse(text);
@@ -23,8 +24,8 @@ $(document).ready(function(){
 		var d = new Date(parseInt(obj.date));
 		$("#updatetime_c").text(d);
 		 });	 
-    });
-});
+    <!-- }); -->
+},2000));
 </script>
     <style>
         table,th,td { 
@@ -47,7 +48,7 @@ $(document).ready(function(){
 </head>
 <body>
     <div>
-	<button>Get Content</button>
+	<!-- <button>Get Content</button> -->
         <br>
         <table>
             <caption><b>Comparation of bitcoin price</b></caption>
