@@ -1,28 +1,35 @@
 import requests
 import json
 
-def getpricedata(url,filename=None):
-    resp = requests.get(url,timeout=6.0)
-    resp.encoding = 'utf-8'
-    print(resp.text)
-    #write to file
-    if(resp.status_code==200 and filename):
-        f = open(filename,'w')
-        json.dump(resp.json(),f)
-        f.close()
-    else:
-        print(resp.status_code)
-    
-if __name__ == "__main__":
-    numIter=20000
-    while numIter>0:
-        try:
-            print('CHBTC:')
-            getpricedata('http://api.chbtc.com/data/v1/ticker?currency=btc_cny','data_chbtc.json')
-            print('\nBITFINEX:')
-            getpricedata("https://api.bitfinex.com/v1/pubticker/btcusd",'data_bitfex.json')
-            numIter-=1
-        except Exception as e:
+def getdata(url,datatype=None,filename=None):
+    try:
+        resp = requests.get(url,timeout=6.0)
+        #write to file
+        if resp.status_code==200:
+            print(resp.text)
+            if filename and datatype=='json':
+                #resp.encoding = 'utf-8'
+                f = open(filename,'w',encoding='utf-8')
+                json.dump(resp.json(),f)
+                f.close()  
+            elif filename and datatype=='txt':
+                unicstr=resp.content.decode(resp.encoding)
+                f = open(filename,'w',encoding='utf-8')
+                f.write(unicstr)
+                f.close()
+                #print(unicstr)
+    except Exception as e:
             print(type(e))
             print(e)
+
+    
+if __name__ == "__main__":
+    numIter=1
+    while numIter>0:
+            numIter-=1
+            print('CHBTC:')
+            getdata('http://api.chbtc.com/data/v1/ticker?currency=btc_cny','json','data_chbtc.json')
+            print('\nBITFINEX:')
+            getdata("https://api.bitfinex.com/v1/pubticker/btcusd",'json','data_bitfex.json')
+            getdata('http://hq.sinajs.cn/list=USDCNY','txt','data_usdcny.txt')
     #input("press <enter> to exit...")

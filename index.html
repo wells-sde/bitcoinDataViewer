@@ -3,27 +3,45 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Bitcoin Price Viewer</title>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- <meta http-equiv="refresh" content="2"> -->
 	<script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
 $(document).ready(setInterval(function(){
     <!-- $("button").click(function(){ -->
+		var currencyRate=0.0, bprice=0.0, cprice=0.0;
+		
+		$("#USDCNY_list").load("src/data_usdcny.txt",function(){
+		var hq_str_USDCNY=$("#USDCNY_list").text();
+		var elements=hq_str_USDCNY.split("\"");
+		elements = elements[1].split(",");
+		currencyRate = parseFloat(elements[1]);
+		$("#usdcny").text(elements[1]+'  '+elements[0]+' '+elements[elements.length-1]);
+		 });
+		 
         $("#complete_price1").load("src/data_bitfex.json ",function(){
 		var text= $("#complete_price1").text();
 		var obj=JSON.parse(text);
-		 $("#priceBitfinex").text(obj.last_price);
+		bprice = parseFloat(obj.last_price)*currencyRate;
+		 $("#priceBitfinex").text(bprice+'');
 		 var d = new Date(parseFloat(obj.timestamp)*1000);
 		 $("#updatetime_b").text(d);
+		 $("#diff_b").text('0.0');
 		 });
+		 
 		$("#complete_price2").load("src/data_chbtc.json ",function(){
 		var text= $("#complete_price2").text();
 		var obj=JSON.parse(text);
+		cprice = parseFloat(obj.ticker.last);
 		$("#priceCHBTC").text(obj.ticker.last);
 		var d = new Date(parseInt(obj.date));
 		$("#updatetime_c").text(d);
-		 });	 
+		$("#diff_c").text(cprice-bprice);
+		if(cprice-bprice>=0){ document.getElementById("diff_c").style.color = 'red';}
+		else {document.getElementById("diff_c").style.color = 'green';}
+		 });
+				 
     <!-- }); -->
 },2000));
 </script>
@@ -52,9 +70,10 @@ $(document).ready(setInterval(function(){
         <br>
         <table>
             <caption><b>Comparation of bitcoin price</b></caption>
-            <tr><th>Bitfinex(USD)</th><th>CHBTC(CNY)</th><th>yuanbao</th></tr>
-            <tr><td id="priceBitfinex"></td><td id="priceCHBTC"></td><td id="priceyuanbao"></td></tr>
-			<tr><td id ="updatetime_b"></td><td  id ="updatetime_c"></td><td  id ="updatetime_y"></td></tr>
+            <tr><th>Data Source</th><th>Bitfinex(USD)</th><th>CHBTC(CNY)</th><th>yuanbao</th></tr>
+            <tr><th>Last Price</th><td id="priceBitfinex"></td><td id="priceCHBTC"></td><td id="priceyuanbao"></td></tr>
+			<tr><th>Difference</th><td id ="diff_b"></td><td id ="diff_c"></td><td id ="diff_y"></td></tr>
+			<tr><th>Update time</th><td id ="updatetime_b" ></td><td id ="updatetime_c"></td><td class='blacktext' id ="updatetime_y"></td></tr>
         </table>
     </div>
     <div>
@@ -66,8 +85,11 @@ $(document).ready(setInterval(function(){
 		<var id="complete_price2" ></var>
         <li><a href="https://www.yuanbao.com/trade/btc2cny" target="_blank"> https://www.yuanbao.com/trade/btc2cny </a></li>
 		<var id="complete_price3" ></var>
+		<li><a href="http://finance.sina.com.cn/money/forex/hq/USDCNY.shtml" target="_blank">美元兑人民币汇率:</a>  <span id="usdcny"></span></li>
+		<!-- <p id="complete_usdcny" charset="gb2312"></p> -->
 		</ol>
     </div>
+	<p id="USDCNY_list"  style="display:none"></p>
     
 </body>
 </html>
