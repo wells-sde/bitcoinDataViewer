@@ -24,7 +24,7 @@ def getdata(url,datatype=None,filename=None):
 
     
 if __name__ == "__main__":
-    numIter=1
+    numIter=100000
     while numIter>0:
             numIter-=1
             print('CHBTC:')
